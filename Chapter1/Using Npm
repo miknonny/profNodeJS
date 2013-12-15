@@ -1,0 +1,29 @@
+Installing a module.
+$  npm install <package name>
+
+Uninstalling a module 
+npm uninstall module_name.
+
+Global mode.
+npm install -g sax
+In this mode packages will be installed in 
+
+
+Installing a particular version of a package.
+
+$  npm install <package name>@<version spec>
+$  npm install sax@0.2.5
+
+
+
+Updating installed modules.
+
+$  npm update <module name>
+
+Resolving Dependencies.
+For each file note that Npm also checks for dependecies in package.json and installs the dependencies of those files.
+
+npm update <package name>
+
+To globally update modules do this.
+npm update -g <package name>
