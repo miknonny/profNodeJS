@@ -1,0 +1,142 @@
+Understanding how node loads a modules.
+
+Modules are either referenced by file path or by name,
+
+Core modules, third party modules from package manager and modules that we create.
+
+Each module exposes a public API that the programmer can use.
+
+
+To use a module of any type use the 'require' function
+
+var import_module = require('module_name');
+
+
+
+function Circle (x, y, r) {
+
+	function r_squared () {
+		return Math.pow(r, 2);
+	}
+
+	function area() {
+		return Math.PI * r_squred();
+	}
+
+	return {
+		area: area
+	}
+}
+
+module.exports = Circle;
+
+
+the important bit here lies in the last line where you define what is to be exported.
+
+You can also export more complex Objects. modules.exports is initialised with an empty object.
+example.
+
+There are several ways to load a module.
+A core module, a third party module installed via npm or a local module.
+
+Loading a core module.
+----------------------
+- These are modules that are compiled into its binary distribution.
+- they are preferencially loaded even if a third party module occurs with thesame name.
+ 
+
+var http = require('http');
+
+Loading  a file module.
+------------------------
+
+You can load a non core module from file system by providing the absolute path like this.
+
+var myModule = require('/home/mike/mymodule');
+
+in event of emission of the .js node knows to automatically add the extension for us.
+
+Loading a Folder module.
+
+var module = require('./myModuleDir')
+
+-Node first assumes that the folder is a package.
+-it searches for package.json.
+
+with a path to the main.js or index.js file for example.
+
+{
+	"name": "myModule"
+	"main": "./lib/myModule.js"
+}
+
+Loading from node modules folder.
+---------------------------------
+if we do the following
+
+var module = require('mymodle.js');
+
+node will search like so.
+/node_modules/myModule.js
+
+
+Caching modules.
+Node caches modules the first time it is loaded. 
+
+a module is initialised only once.
+the second call does nothing.
+
+console.log('going to initialise module');
+
+module.exports = function () {
+	console.log('hi')
+};
+
+console.log('module has been intialised.')
+
+"going to initialise module"
+"module hsa been initialised is written only once".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
