@@ -1,0 +1,88 @@
+Using buffers to Manipulate encode and decode Binary data.
+
+creating buffers
+--------------
+ 
+ var buf = new Buffer('hello world');
+
+ var buf = new Buffer('89dfdf', 'base64');
+
+ Base64. is a means of representing binary data in ascii format.
+ commomly used to embed binary data in textual format.
+
+ if you do not have the initial content of the buffer you need to create a buffer with the ability to hold data.
+
+ var buf = new Buffer(1024);     //creates a 1024 bytes buffer.
+
+Getting and setting bytes in a buffer.
+
+var buf = new Buffer('my buffer content');
+
+
+when you initialise a buffer, keep in mind that it will contain random bytes not zeros.
+
+var buf = new Buffer(1024);
+console.log(buf[100]);
+
+you can also manipulate content of any position.
+
+buf[99] = 125;  //sets the 100th byte to 125.
+
+you can copy part of a buffer into another buffer like so.
+
+
+var buffer1 = new buffer("this is the content of my buffer");
+
+var buffer2 = new buffer(11);
+
+another example.
+
+var targetStart = 0;
+var sourceStart = 8;
+var sourceEnd = 19;
+
+
+buffer1.copy(buffer2, targetStart, sourceStart, sourceEnd);
+
+here you are copying position 8 to 19 of the source buffer into position 0 of the target buffer.
+
+
+Decoding Buffer.
+-----------------
+var str = buf.toString();
+
+
+Slicing a buffer
+-----------------
+
+var buffer = new Buffer("This is the content of my buffer");
+
+var smallerBuffer = buffer.slice(8, 19);
+
+console.log(smallerBuffer.toString()); // -> "the content"
+
+
+when you slice a buffer no new memnory is allocate and nothing is copied. the new buffer only uses the parent buffer and just references the start and or end positions.
+
+
+
+Summmary.
+
+javascript does not provide a clean way of dealing with buffers. so we use the node buffer Object for dealing with that.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
