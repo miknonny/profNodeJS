@@ -1,0 +1,59 @@
+Using timeout to defer the execution of functions.
+
+var timeout_ms = 2000;
+var timeout = setTimeout(function () {
+	console.log("time out!");
+}, time_ms)
+
+accepts the defered function as the first function and the time the function is executed as the second argument.
+
+
+var timeoutTime = 2000;
+var timeout = setTimeout(function() {
+	console.log("timeout!")
+}, timeoutTime);
+
+setTimeout(function () {
+	clearTimeout(timeout);
+}, 1000);
+
+Scheduling and canceling the repititive execution of a function.
+
+var period = 1000;
+
+setInterval(function () {
+	console.log("tick");
+}, period);
+
+
+var interval = setInterval(function () {
+	console.log('tick');
+});
+clearInterval(interval);
+
+Using process.nexttick to differ the execution of a function until the next eventloop iteration.
+Process.nextick
+
+Using setTimeout instead of setInterval to force serialization.
+
+var interval = 1000;
+setInterval(function () {
+	my_async_function(function () {
+		console.log("my async function finished");
+	});
+});
+
+(function schedule () {
+	setTimeout (function do_it () {
+		my_asyn_function(function () {
+			console.log("async is done");
+			schedule();
+		})
+	}, interval); 
+}());
+
+
+
+Summary.
+Do not perform Cpu intensive operation inside an event loop. 
+using setInterval does not guarantee that there wont be more than one call at thesame time. but you can circumvent that potential issue by using recursion and setTimeout.
