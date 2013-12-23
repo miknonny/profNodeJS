@@ -1,0 +1,181 @@
+
+has a streaming api for dealing with files as if they where network streams.
+
+Node file api is direct translation of unix(posix) API such as the way the file descriptors are used.
+
+There are three special filed descriptors.
+1. standard input (stdin)
+	a readonly stream that the process can use to readfrom console or from data piped from another process
+2. standard output (stdout)
+these are output only file descriptors. they can be used to output into the console or into another process.
+3. standard error (stderr)
+   standard error is reserved for outputing errors.
+
+
+
+
+Nearly all the code that handles has to handle and manipulate file paths.
+
+Manipulating file paths.
+path module.
+this enables you to normalise join and resolve paths as well as find the relative path between two absolute paths.
+
+
+Normalising file paths before you use them.
+files resulting from joining two or more paths need to be normalised.
+
+
+var path = require('path');
+path.normalise('/foo/bar//baz/asdf/quuix/..');
+// => '/foo/bar/baz/asdf'
+
+Joining paths.
+path.join can be used to concatenate path strings.
+
+
+var path = require('path');
+path.join('/foo', 'bar', 'baz/asdf', 'quux', '..');
+// => 'foo/bar/baz/asdf/quux';
+
+note that path.join also normalises the path.
+
+Resolving paths.
+you can resolve a series of paths into a normalise absolute path using path.resolve();
+
+var path = require('path');
+
+path.resolve('/foo/bar', '/tmp/file');
+
+
+
+Finding the relative path between two absolute path.
+
+var path = require('path');
+path.relative('/data/oranea/test/aaa', '/data/orandea/impl/bbb');
+
+// => ../../impl/bbb
+
+
+extracting components of a path.
+
+var path = require('path');
+path.dirname('/foo/bar/baz/asdf/quux.txt');
+
+finding the relative paths between two absulute paths.
+
+var path = require('path');
+path.relative('/data/orandea/test/aaa', '')
+
+
+var path = require('path');
+
+path.dirname('/foo/bar/quux.txt');
+// => /foo/bar
+
+getting the extname
+
+
+path.extname('/a/b/index.html');
+// => '.html';
+
+
+Determining the existense of a path.
+
+var path = require('path');
+
+path.exists('/etc/passwd', function (exists) {
+	console.log('exists:' exists);
+});
+
+in node version 0.8 path.exists was replaced with fs.exists
+
+
+var fs = require('fs');
+fs.exists('/does/notexists', function (exists) {
+	console.log('exists:' exists);
+});
+
+
+
+Reading from a file.
+
+fs.read
+
+
+file is read in 'r' mode
+
+
+writing to a file.
+fs.write.
+file is read in a mode.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
