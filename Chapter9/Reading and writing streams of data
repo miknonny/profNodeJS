@@ -1,0 +1,176 @@
+Node abstracts streams into readable streams and writable streams
+
+An example of a stream is a TCP socket that you can read and write to.
+A file that you can append to or read from.
+
+Using Readable stream.
+This is like a data faucet. once you have created one
+note that you can control the flow by pausing or resuming it.
+you can get notified when the data  is available.
+
+
+Waiting for data.
+note that streams send data in chunks.
+by listening for data you can get notified when ever data is available.
+you can get the data as a buffer or as a string depending on the stream encoding settings.
+
+If no encoding is set for data it is delivered as buffers
+you can set encoding by defining stream.encoding
+
+
+
+
+var readable_stream1 = ...
+readable stream1.on('data', function (data) {
+	//data is a buffer since stream.setEncoding is not set.
+	console.log('got this data:', data);
+});
+
+
+
+var readable stream2 = ...
+//here we have explicitly set the encoding.
+readable stream2.setEncoding('utf-8');
+readable stream2.on('data' function (data) {
+	console.log('got this data:', data);
+});
+
+Pausing and resuming stream.
+
+stream.pause();
+
+After you have done this you will not receive any further data events.
+
+stream.resume() //resumes the stream.
+
+knowing when a stream ends.
+
+var stream = ...
+readable stream.on('end', function () {
+	console.log('the stream has ended');
+});
+
+
+Writable streams are objects that allows you to write data to it.
+
+var writable_stream = ...;
+writable_stream.write('this is an utf-8 string');
+
+note that you can optionally specify the encoding;
+
+var writable_stream = ...;
+writable_stream.write('7e3e4ac98', 'base64');
+
+Waiting for a Stream to Drain.
+You can check for a drain event.
+writable stream.on('drain', function () {
+	console.log('drain emitted');
+});
+
+
+Considering Some drain examples.
+
+
+
+Creating File-system Streams.
+
+var fs = require('fs');
+var fs = fs.createReaStream('/path/to/file')
+
+Understanding Network streams.
+A tcp connection is both a writable stream and a readable stream and also a server connection.
+
+A http reques object is a readable stream and a http response object is a writable stream.
+
+Note that each of these stream types are covered in later chapter.
+
+note that you can use the stream.pipe to mitigate the slow client problem.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
