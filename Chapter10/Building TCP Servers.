@@ -1,0 +1,209 @@
+Building TCP Servers.
+The transmission control protocol sits on top of the internet protocol and provides a transport mechanism for applications.
+
+Note that http sits on top of TCP as do many other connections.
+
+
+Creating a TCP server.
+You can create the tcp server using the net module.
+
+require('net').createServer(function(socket) {
+	//new connection 
+	socket.on('data', function(data) {
+		// got data;
+	})
+	socket.on('end', function {
+		//connection closed.
+	});
+	socket.write('somestring');
+}).listen(4001);
+
+
+server emits the following events.
+
+listening - when the server is listening on a specified port or address.
+connection - when a new connection is established.
+close - when the server is close that is not bound to the port anymore.
+error - when a connection error occurs at the server level.
+
+
+Socket Object.
+When there is a connection you are giving the socket object as the first argument.
+
+Note that the socket object is both read and write stream.
+
+Understanding idle sockets.
+
+By default when a new connection is setup between two peers, it is kept open till one of them closes.
+
+In node you can set TCP to close due to inactivity  by using setTimeout
+you can even listen for timeout event on the socket object.
+
+
+var timeout = 60000
+
+socket.setTimeout(timeout);
+socket.on('timeout', );
+socket.on('timeout', function () {
+	socket.write('idle timeout, diconnecting bye!');
+});
+
+
+
+Setting up keepAlive.
+ 
+In node, net.Socket can implement keepalive mechanism to prevent future timeouts from occuring on a network.
+
+socket.setKeepAlive(true);
+socket.setKeepAlive(true, 10000);
+the socket.KeepAlive sends empty packet periodiclly to keep the connection alive.
+
+Usinf delay or no delay.
+the kernel buffers the data before sending the tcp packets.
+and uses nagle algorithm.
+the algorithm is used to reduce the no of packets that are sent across the wire.
+depending on the application, this feature can turn out to be quite useful.
+
+this introduces some delay sending data adding to the overall latency of the application.
+
+
+you can turn this off and force data to be sent after each write commmand.
+
+socket.setNoDelay(true);
+you can revert this with 
+socket.setNoDelay(false);
+
+Listening for client connections.
+you can bind to specific tcp ports like so.
+
+
+
+
+var port = 4001;
+var host = '0.0.0.0';
+server.listen(port, host);
+
+
+
+Closing the server. this closes the server and prevents it from accepting new connection.
+
+var server = ...;
+server.close();
+server.on('close', function () {
+	console.log('server closed');
+});
+
+
+
+
+Handling errors.
+
+require('net').createServer(function (socket) {
+	socket.on('error', function (error) {
+		//do something.
+	})
+});
+
+note that if you fail to catch error. node will terminate with an uncaught exception and terminate the current process.
+
+
+note that a tcp server will emit certain events during its life cycle.
+listen, close and error events.
+
+
+socket Objects allow you to control certain things using socket.pause and socket.resume.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
