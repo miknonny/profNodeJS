@@ -1,0 +1,127 @@
+Connectning to a tcp server.
+you can connect to a tcp server like this.
+
+var net = require('net');
+var port = 4000;
+var host = 'www.acme.com';
+
+var conn = ne.createServer(port,host);
+
+We can modify this code and add callback function to be called when ever there is a connection.
+
+
+var conn = net.createServer(port, host, function (conn) {
+	console.log('We have a new connection');
+});
+
+
+Sending and Receiving data.
+the return value of net.createConnection is an instance of net.socket.
+this represent that the connection to the server is both readable and writable stream.
+
+
+conn.write('here is a string');
+It allows you to send some data.
+
+ending a connection.
+
+conn.end();
+
+Handling Errors.
+Errors can happen when you try to establish a connection or the hostname is not found on the DNS or the target host is unreachable or the connection is rejected.
+
+you can trap errors by listening to the error events like this.
+
+conn.on('error', function () {
+	console.log('this error happened: ' + err.message);
+});
+
+
+Connecting to the server.
+here we are connecting to the server on port 4000 in the localhost we are also lisening for any error that may occur.
+
+
+var net = require('net')
+var port = 4000
+
+var conn = net.createConnection(port);
+
+conn.on('connect', function () {
+	console.log('connected to server');
+});
+
+conn.on('errr', function (err) {
+	console.log('Error in connection', err);
+});
+
+
+
+Sending command line to the server.
+You can send a command line to the server using the process.stdin
+
+
+
+Reconnecting if a connection dies.
+var net = require(net);
+var port = 4000;
+var conn;
+
+
+
+process.stdin.resume();
+(function connect () {
+	conn = net.createConnection(port);
+
+	conn.on('connect', function () {
+		console.log('connected to server');
+	});
+
+	conn.on('error', function (err) {
+		console.log('Error in connection: ', err);
+	});
+
+	conn.on('close', function () {
+		console.log('connection got closed, will try to reconnect');
+		connect();
+	});
+
+	conn.pipe(process.stdout, {end: false});
+	process.stdin.pipe(conn);
+}());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
